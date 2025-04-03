@@ -1,2 +1,2 @@
-# EDA_Sales_Dataset_Toni_Ceja_Lopez
+# Exploratory Data Analysis
 EDA using python.
