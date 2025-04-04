@@ -49,8 +49,13 @@ def univariate_analysis(data):
     for i, column in enumerate(data.columns):
 
         plt.figure(figsize=(8, 6))
-        sns.histplot(data[column], color=palette[i], kde=True)
+        sns.histplot(data[column], color=palette[i], kde=True, shrink=0.8)
 
+        # This only applies to categorical variables with more than 10 unique values
+        
+        if data[column].dtype == "object" and data[column].nunique() > 10:
+            plt.xticks(rotation=45)
+    
         plt.title(f"Univariate Analysis of {column}")
         plt.xlabel(column)
         plt.grid(alpha=0.5)
