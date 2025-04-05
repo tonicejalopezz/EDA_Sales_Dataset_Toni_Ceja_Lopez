@@ -44,12 +44,13 @@ def univariate_analysis(data):
     Function to display univariate analysis.
     """
 
+    # Customizable color palette
     palette = sns.color_palette("tab20")
 
     for i, column in enumerate(data.columns):
 
         plt.figure(figsize=(8, 6))
-        sns.histplot(data[column], color=palette[i], kde=True, shrink=0.8)
+        sns.histplot(data[column], color=palette[i], shrink=0.8)
 
         # This only applies to categorical variables with more than 10 unique values
         
@@ -60,3 +61,16 @@ def univariate_analysis(data):
         plt.xlabel(column)
         plt.grid(alpha=0.5)
         plt.show()
+
+def corr_matrix(data):
+    """
+    Function to display correlation matrix.
+    """
+
+    plt.figure(fighsize=(12, 10))
+    sns.heatmap(data.corr(), annot=True, cmap="coolwarm_r", fmt=".2f")
+
+    plt.title("Data Correlation Matrix")
+    plt.xticks(rotation=90)
+    plt.yticks(rotation=0)
+    plt.show()
