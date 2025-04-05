@@ -67,10 +67,12 @@ def corr_matrix(data):
     Function to display correlation matrix.
     """
 
-    plt.figure(figsize=(12, 8))
-    sns.heatmap(data.corr(), annot=True, cmap="coolwarm_r", fmt=".2f")
+    numerical_columns = data.select_dtypes(include=["number"]).columns
 
-    plt.title("Data Correlation Matrix")
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(data[numerical_columns].corr(), annot=True, cmap="coolwarm_r", fmt=".2f")
+
+    plt.title("Numerical Columns Correlation Matrix")
     plt.xticks(rotation=90)
     plt.yticks(rotation=0)
     plt.show()
