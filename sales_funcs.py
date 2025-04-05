@@ -67,7 +67,7 @@ def corr_matrix(data):
     Function to display correlation matrix.
     """
 
-    plt.figure(fighsize=(12, 10))
+    plt.figure(figsize=(12, 8))
     sns.heatmap(data.corr(), annot=True, cmap="coolwarm_r", fmt=".2f")
 
     plt.title("Data Correlation Matrix")
