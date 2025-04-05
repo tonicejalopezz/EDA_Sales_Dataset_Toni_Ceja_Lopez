@@ -17,9 +17,9 @@ def clean_data(data):
     data["Day"] = data["Sale_Date"].dt.day
     data["Day_of_Week"] = data["Sale_Date"].dt.day_name()
 
-    data["profit"] = data["Sales_Amount"] - data["Unit_Cost"] * data["Quantity_Sold"]
+    data["profit"] = ((data["Unit_Price"] * (1 - data["Discount"])) - data["Unit_Cost"]) * data["Quantity_Sold"]
 
-    # Drop Sale_data column
+    # Drop Sale_Date column
     data = data.drop(columns=["Sale_Date"])
 
     # Check for missing values
