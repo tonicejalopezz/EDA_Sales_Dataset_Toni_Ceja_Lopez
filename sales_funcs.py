@@ -78,3 +78,16 @@ def corr_matrix(data):
     plt.xticks(rotation=90)
     plt.yticks(rotation=0)
     plt.show()
+
+def bivariate_analysis(data, column_1, column_2, hue=None):
+    """
+    Function to display bivariate analysis.
+    """
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(data=data, x=column_1, y=column_2, hue=hue, palette="Set2")
+
+    plt.title(f"Bivariate Analysis of {column_1} and {column_2}")
+    plt.xlabel(column_1)
+    plt.ylabel(column_2)
+    plt.grid(alpha=0.5)
+    plt.show()
