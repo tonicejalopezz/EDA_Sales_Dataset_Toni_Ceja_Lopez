@@ -89,8 +89,32 @@ def bivariate_analysis(data, column_1, column_2):
         plt.figure(figsize=(8, 6))
         sns.scatterplot(data=data, x=column_1, y=column_2, hue=col, palette="Set2")
 
-    plt.title(f"Bivariate Analysis of {column_1} and {column_2}")
-    plt.xlabel(column_1)
-    plt.ylabel(column_2)
-    plt.grid(alpha=0.5)
-    plt.show()
+        plt.title(f"Bivariate Analysis of {column_1} and {column_2}")
+        plt.xlabel(column_1)
+        plt.ylabel(column_2)
+        plt.grid(alpha=0.5)
+        plt.show()
+
+def violin_plot_analysis(data):
+    """
+    Function to display violin plot analysis of categorical & numerical variablues
+    """
+    # Selected columns for box plot analysis
+
+    wanted_cat_cols = data[["Sales_Rep", "Region", "Product_Category", "Customer_Type", "Payment_Method", "Sales_Channel"]].columns
+    wanted_num_cols = data[["Sales_Amount","Quantity_Sold", "profit"]].columns
+
+    for cat_col in wanted_cat_cols:
+
+        fig, axs = plt.subplots(3, figsize=(12, 15))
+        fig.suptitle(f"Box Plot of {cat_col}")
+
+        for idx, num_col in enumerate(wanted_num_cols):
+
+            sns.violinplot(data=data, x=cat_col, y=num_col, ax=axs[idx], hue=cat_col, 
+                           inner_kws=dict(box_width=20, whis_width=5), palette="Set2_r")
+
+            axs[idx].set_xlabel(" ")
+            axs[idx].grid(alpha=0.5)
+
+        plt.show()
