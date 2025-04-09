@@ -118,3 +118,55 @@ def violin_plot_analysis(data):
             axs[idx].grid(alpha=0.5)
 
         plt.show()
+
+def grouping_column(data, selected_column=None, by_column=None):
+        """
+        Grouping by selected column and returning sum, mean, and count of desired columns.
+        """
+
+        select_sums = (data.groupby(selected_column)
+                       [[by_column]].sum().add_prefix("Total_"))
+        
+        select_means = (data.groupby(selected_column)
+                        [[by_column]].mean().add_prefix("Average_"))
+        
+        select_counts = (data.groupby(selected_column)
+                         [[by_column]].count().add_prefix("Count_"))
+    
+        group_data =  pd.concat([select_sums, select_means, select_counts], axis=1).reset_index()
+
+        return group_data
+
+def rep_piv_table(data, selected_column=None, by_column=None):
+    """
+    Creating a pivot table for sales rep.
+    """
+
+    rep_pivot = data.pivot_table(index=selected_column, 
+                                values=by_column, 
+                                aggfunc=["sum"])
+    
+    table = rep_pivot.stack(future_stack=True).reset_index().rename(columns={"level_1": "Type"})
+    
+    return table
+
+def plot_visual(data, column_1, columns):
+    """
+    Displaying Line Plot
+    """
+    fig, axs = plt.subplots(len(columns), 1, figsize=(12, 6 * len(columns)))
+    colors = sns.color_palette("tab10")
+    fig.suptitle(f"Line Plot by {column_1}")
+
+    for i, col in enumerate(columns):
+
+        axs[i].plot(data[column_1], data[col], marker='o', label=col, color=colors[i])
+        axs[i].set_ylabel(col)
+        axs[i].grid(alpha=0.5)
+        axs[i].legend()
+        axs[i].grid(alpha=0.5)
+
+    axs[i].set_xlabel(column_1)
+
+    plt.tight_layout(pad=2)
+    plt.show()
