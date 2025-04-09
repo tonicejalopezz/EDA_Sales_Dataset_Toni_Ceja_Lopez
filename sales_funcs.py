@@ -85,9 +85,9 @@ def bivariate_analysis(data, column_1, column_2):
     """
     categorical_columns = data.select_dtypes(include=["object"]).columns
 
-    for i in range(len(categorical_columns)):
+    for col in categorical_columns:
         plt.figure(figsize=(8, 6))
-        sns.scatterplot(data=data, x=column_1, y=column_2, hue=categorical_columns, palette="Set2")
+        sns.scatterplot(data=data, x=column_1, y=column_2, hue=col, palette="Set2")
 
     plt.title(f"Bivariate Analysis of {column_1} and {column_2}")
     plt.xlabel(column_1)
